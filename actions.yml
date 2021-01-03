@@ -1,0 +1,6 @@
+name: "Generate and Commit PlantUML Diagrams"
+description: "generate from puml files to png files, and commit."
+# TODO: add inputs
+runs:
+  using: "docker"
+  image: "Dockerfile"
