@@ -19,7 +19,7 @@ fi
 SRC_FILES=$(git diff origin/${GITHUB_BASE_REF} --name-only | grep ".puml")
 SRC_DIRS=$(echo ${SRC_FILES} | xargs dirname | sort | uniq)
 for SRC_DIR in ${SRC_DIRS}; do
-  java -jar ~/jar/plantuml.jar $SRC_DIR
+  java -jar /plantuml.jar $SRC_DIR
 done
 echo "generated diagrams"
 
