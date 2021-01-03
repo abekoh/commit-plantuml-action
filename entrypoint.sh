@@ -17,6 +17,7 @@ fi
 
 # generate
 cd ${GITHUB_WORKSPACE}
+git fetch
 SRC_FILES=$(git diff origin/${GITHUB_BASE_REF} --name-only | grep ".puml")
 SRC_DIRS=$(echo ${SRC_FILES} | xargs dirname | sort | uniq)
 for SRC_DIR in ${SRC_DIRS}; do
@@ -41,6 +42,7 @@ echo "comitted png files"
 if [[ ${INPUT_ENABLE-REVIEW-COMMENT} -ne "true" ]]; then
   exit 0
 fi
+git fetch
 GITHUB_SHA_AFTER=$(git rev-parse origin/${GITHUB_HEAD_REF})
 DIFF_FILES=`git diff ${GITHUB_SHA} ${GITHUB_SHA_AFTER} --name-only | grep ".png"`
 echo $DIFF_FILES
