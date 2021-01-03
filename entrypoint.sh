@@ -7,12 +7,12 @@ if [[ ! ${GITHUB_BASE_REF} ]]; then
 fi
 BOT_EMAIL=$1
 if [[ ! ${BOT_EMAIL} ]]; then
-  echo "ERROR: Please set secrets.BOT_EMAIL"
+  echo "ERROR: Please set inputs.bot-email"
   exit 1
 fi
 BOT_GITHUB_TOKEN=$2
 if [[ ! ${BOT_GITHUB_TOKEN} ]]; then
-  echo "ERROR: Please set secrets.BOT_GITHUB_TOKEN"
+  echo "ERROR: Please set inputs.bot-github-token"
   exit 1
 fi
 ENABLE_REVIEW_COMMENT=$3
