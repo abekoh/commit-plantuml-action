@@ -31,7 +31,7 @@ if [[ ! $(git status --porcelain) ]]; then
 fi
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${INPUT_BOT-EMAIL}"
-git remote set-url origin https://${GITHUB_ACTOR}:${BOT_GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+git remote set-url origin https://${GITHUB_ACTOR}:${INPUT_BOT-GITHUB-TOKEN}@github.com/${GITHUB_REPOSITORY}.git
 git checkout ${GITHUB_HEAD_REF}
 git add .
 git commit -m "[skip ci] add generated diagrams"
@@ -47,7 +47,7 @@ GITHUB_SHA_AFTER=$(git rev-parse origin/${GITHUB_HEAD_REF})
 DIFF_FILES=`git diff ${GITHUB_SHA} ${GITHUB_SHA_AFTER} --name-only | grep ".png"`
 echo $DIFF_FILES
 BODY="## Diagrams changed\n"
-for DIFF_FILE in $DIFF_FILES; do
+for DIFF_FILE in ${DIFF_FILES}; do
   TEMP=`cat << EOS
 ### [${DIFF_FILE}](https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_SHA}/${DIFF_FILE})\n
 <details><summary>Before</summary>\n
@@ -62,8 +62,10 @@ EOS
   `
   BODY=${BODY}${TEMP}
 done
-BODY=`echo $BODY | sed -e "s/\:/\\\:/g"`
+BODY=`echo ${BODY} | sed -e "s/\:/\\\:/g"`
 PULL_NUM=`echo ${GITHUB_REF} | sed -r "s/refs\/pull\/([0-9]+)\/merge/\1/"`
+echo "body: ${BODY}"
+echo "pull-num: ${PULL_NUM}"
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Accept: application/vnd.github.v3+json" \
