@@ -9,3 +9,7 @@ jobs:
     steps:
       - name: generate and commit diagrams
         uses: abekoh/commit-plantuml-action@v2
+        with:
+          bot-email: ${{ secrets.BOT_EMAIL }}
+          bot-github-token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          enable-review-comment: true
