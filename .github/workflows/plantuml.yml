@@ -8,7 +8,7 @@ jobs:
     if: "! contains(github.event.head_commit.message, '[skip ci]')"
     steps:
       - name: generate and commit diagrams
-        uses: abekoh/commit-plantuml-action@v2
+        uses: abekoh/commit-plantuml-action@v3
         with:
           bot-email: ${{ secrets.BOT_EMAIL }}
           bot-github-token: ${{ secrets.BOT_GITHUB_TOKEN }}
