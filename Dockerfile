@@ -8,6 +8,4 @@ RUN wget -P / --content-disposition https://sourceforge.net/projects/plantuml/fi
 
 COPY entrypoint.sh /entrypoint.sh
 
-WO
-
 ENTRYPOINT ["/entrypoint.sh"]
