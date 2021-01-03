@@ -1,5 +1,7 @@
 FROM ubuntu:latest
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update 
 RUN apt-get install -y fonts-ipafont graphviz wget default-jre git curl
 RUN wget -P / --content-disposition https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
