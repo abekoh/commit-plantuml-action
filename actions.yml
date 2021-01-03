@@ -1,6 +1,20 @@
 name: "Generate and Commit PlantUML Diagrams"
 description: "generate from puml files to png files, and commit."
-# TODO: add inputs
+inputs:
+  bot-email:
+    description: "E-mail address for git commit"
+    required: true
+  bot-github-token:
+    description: "token of GitHub to commit"
+    required: true
+  enable-review-comment:
+    description: "whether post review comment or not"
+    required: true
+    default: false
 runs:
   using: "docker"
   image: "Dockerfile"
+  args:
+    - ${{ inputs.bot-email }}
+    - ${{ inputs.bot-github-token }}
+    - ${{ inputs.enable-review-comment }}
