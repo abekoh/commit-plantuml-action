@@ -34,8 +34,4 @@ BacklogItem -- "0..*" Task
 Task -- TaskId
 Task -- "0..*" EstimationLogEntry
 
-note right of BacklogItem {
-  バックログアイテムの説明修正！
-}
-
 @enduml
