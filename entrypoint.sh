@@ -69,5 +69,5 @@ curl -X POST \
   -H "Accept: application/vnd.github.v3+json" \
   -H "Authorization: token ${INPUT_BOT-GITHUB-TOKEN}" \
   -d "{\"event\": \"COMMENT\", \"body\": \"${BODY}\"}" \
-  "${GITHUB_API_URL}/repos/abekoh/domain-model-repository/pulls/${PULL_NUM}/reviews"
+  "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pulls/${PULL_NUM}/reviews"
 echo "added review comments"
