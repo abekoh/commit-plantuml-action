@@ -31,7 +31,7 @@ if [[ ! $(git status --porcelain) ]]; then
 fi
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${INPUT_BOT-EMAIL}"
-git remote set-url origin https://${GITHUB_ACTOR}:${BOT_GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+git remote set-url origin https://${GITHUB_ACTOR}:${INPUT_BOT-GITHUB-TOKEN}@github.com/${GITHUB_REPOSITORY}.git
 git checkout ${GITHUB_HEAD_REF}
 git add .
 git commit -m "[skip ci] add generated diagrams"
