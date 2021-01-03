@@ -5,14 +5,17 @@ if [[ ! ${GITHUB_BASE_REF} ]]; then
   echo "ERROR: This action is only for pull-request events."
   exit 1
 fi
-if [[ ! ${{ secrets.BOT_EMAIL }} ]]; then
+BOT_EMAIL=$1
+if [[ ! ${BOT_EMAIL} ]]; then
   echo "ERROR: Please set secrets.BOT_EMAIL"
   exit 1
 fi
-if [[ ! ${{ secrets.BOT_GITHUB_TOKEN }} ]]; then
+BOT_GITHUB_TOKEN=$2
+if [[ ! ${BOT_GITHUB_TOKEN} ]]; then
   echo "ERROR: Please set secrets.BOT_GITHUB_TOKEN"
   exit 1
 fi
+ENABLE_REVIEW_COMMENT=$3
 
 # generate
 SRC_FILES=$(git diff origin/${GITHUB_BASE_REF} --name-only | grep ".puml")
@@ -27,8 +30,8 @@ if [[ ! $(git status --porcelain) ]]; then
   exit 0
 fi
 git config user.name "${GITHUB_ACTOR}"
-git config user.email "${{ secrets.BOT_EMAIL }}"
-git remote set-url origin https://${GITHUB_ACTOR}:${{ secrets.BOT_GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
+git config user.email "${BOT_EMAIL}"
+git remote set-url origin https://${GITHUB_ACTOR}:${BOT_GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
 git checkout ${GITHUB_HEAD_REF}
 git add .
 git commit -m "[skip ci] add generated diagrams"
@@ -63,7 +66,7 @@ PULL_NUM=`echo ${GITHUB_REF} | sed -r "s/refs\/pull\/([0-9]+)\/merge/\1/"`
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Accept: application/vnd.github.v3+json" \
-  -H "Authorization: token ${{ secrets.BOT_GITHUB_TOKEN }}" \
+  -H "Authorization: token ${BOT_GITHUB_TOKEN}" \
   -d "{\"event\": \"COMMENT\", \"body\": \"${BODY}\"}" \
   "${GITHUB_API_URL}/repos/abekoh/domain-model-repository/pulls/${PULL_NUM}/reviews"
 echo "added review comments"
