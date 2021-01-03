@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 
 # verify
 if [[ ! ${GITHUB_BASE_REF} ]]; then
@@ -6,16 +6,14 @@ if [[ ! ${GITHUB_BASE_REF} ]]; then
   exit 1
 fi
 BOT_EMAIL=$1
-if [[ ! ${BOT_EMAIL} ]]; then
+if [[ ! ${INPUT_BOT-EMAIL} ]]; then
   echo "ERROR: Please set inputs.bot-email"
   exit 1
 fi
-BOT_GITHUB_TOKEN=$2
-if [[ ! ${BOT_GITHUB_TOKEN} ]]; then
+if [[ ! ${INPUT_BOT-GITHUB-TOKEN} ]]; then
   echo "ERROR: Please set inputs.bot-github-token"
   exit 1
 fi
-ENABLE_REVIEW_COMMENT=$3
 
 # generate
 SRC_FILES=$(git diff origin/${GITHUB_BASE_REF} --name-only | grep ".puml")
@@ -30,7 +28,7 @@ if [[ ! $(git status --porcelain) ]]; then
   exit 0
 fi
 git config user.name "${GITHUB_ACTOR}"
-git config user.email "${BOT_EMAIL}"
+git config user.email "${INPUT_BOT-EMAIL}"
 git remote set-url origin https://${GITHUB_ACTOR}:${BOT_GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
 git checkout ${GITHUB_HEAD_REF}
 git add .
@@ -39,7 +37,7 @@ git push origin HEAD:${GITHUB_HEAD_REF}
 echo "comitted png files"
 
 # add review comment
-if [[ ${ENABLE_REVIEW_COMMENT} -ne "true" ]]; then
+if [[ ${INPUT_ENABLE-REVIEW-COMMENT} -ne "true" ]]; then
   exit 0
 fi
 GITHUB_SHA_AFTER=$(git rev-parse origin/${GITHUB_HEAD_REF})
@@ -66,7 +64,7 @@ PULL_NUM=`echo ${GITHUB_REF} | sed -r "s/refs\/pull\/([0-9]+)\/merge/\1/"`
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Accept: application/vnd.github.v3+json" \
-  -H "Authorization: token ${BOT_GITHUB_TOKEN}" \
+  -H "Authorization: token ${INPUT_BOT-GITHUB-TOKEN}" \
   -d "{\"event\": \"COMMENT\", \"body\": \"${BODY}\"}" \
   "${GITHUB_API_URL}/repos/abekoh/domain-model-repository/pulls/${PULL_NUM}/reviews"
 echo "added review comments"
