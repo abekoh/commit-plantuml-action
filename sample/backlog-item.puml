@@ -1,0 +1,41 @@
+@startuml
+object BacklogItem {
+  <<aggregate root>>
+}
+object ProductId {
+  <<value object>>
+}
+object BacklogItemId {
+  <<value object>>
+}
+object ReleaseId {
+  <<value object>>
+}
+object SprintId {
+  <<value object>>
+}
+
+object Task {
+  <<entity>>
+}
+object TaskId {
+  <<value object>>
+}
+object EstimationLogEntry {
+  <<value object>>
+}
+
+BacklogItem -- BacklogItemId
+BacklogItem -- ProductId
+BacklogItem -- ReleaseId
+BacklogItem -- SprintId
+BacklogItem -- "0..*" Task
+
+Task -- TaskId
+Task -- "0..*" EstimationLogEntry
+
+note right of BacklogItem {
+  バックログアイテムの説明修正！
+}
+
+@enduml
