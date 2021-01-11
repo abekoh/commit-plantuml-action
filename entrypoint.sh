@@ -38,7 +38,7 @@ git push origin HEAD:${GITHUB_HEAD_REF}
 echo "comitted png files"
 
 # add review comment
-if [[ "${INPUT_ENABLEREVIEWCOMMENT}" = "true" ]]; then
+if [[ "${INPUT_ENABLEREVIEWCOMMENT}" != "true" ]]; then
   exit 0
 fi
 git fetch
