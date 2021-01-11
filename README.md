@@ -1,4 +1,4 @@
-# Commit PlantUML Action
+# Generate and Commit PlantUML Diagrams
 
 This action generate diagrams (png) from PlantUML files (*.puml), and commit to pull-request. Also this can add review comment of diff files.
 
