@@ -18,11 +18,10 @@ fi
 cd ${GITHUB_WORKSPACE}
 git fetch
 SRC_FILES=$(git diff origin/${GITHUB_BASE_REF} --name-only | grep ".puml")
-SRC_DIRS=$(echo ${SRC_FILES} | xargs dirname | sort | uniq)
-for SRC_DIR in ${SRC_DIRS}; do
-  java -jar /plantuml.jar $SRC_DIR
+for SRC_FILE in ${SRC_FILES}; do
+  java -jar /plantuml.jar $SRC_FILE -charset UTF-8
+  echo "generate from $SRC_FILE"
 done
-echo "generated diagrams"
 
 # commit
 if [[ ! $(git status --porcelain) ]]; then
@@ -38,7 +37,7 @@ git push origin HEAD:${GITHUB_HEAD_REF}
 echo "comitted png files"
 
 # add review comment
-if [[ "${INPUT_ENABLEREVIEWCOMMENT}" = "true" ]]; then
+if [[ "${INPUT_ENABLEREVIEWCOMMENT}" != "true" ]]; then
   exit 0
 fi
 git fetch
