@@ -1,13 +1,13 @@
 name: "Generate and Commit PlantUML Diagrams"
 description: "generate from puml files to png files, and commit."
 inputs:
-  bot-email:
+  botEmail:
     description: "E-mail address for git commit"
     required: true
-  bot-github-token:
+  botGithubToken:
     description: "token of GitHub to commit"
     required: true
-  enable-review-comment:
+  enableReviewComment:
     description: "whether post review comment or not"
     required: true
     default: false
