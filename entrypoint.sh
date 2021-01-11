@@ -51,7 +51,7 @@ echo $DIFF_FILES
 BODY="## Diagrams changed\n"
 for DIFF_FILE in ${DIFF_FILES}; do
   TEMP=`cat << EOS
-### [${DIFF_FILE}](https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_SHA}/${DIFF_FILE})\n
+### [${DIFF_FILE}](https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_SHA_AFTER}/${DIFF_FILE})\n
 <details><summary>Before</summary>\n
 \n
 ![before](https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_SHA}/${DIFF_FILE}?raw=true)\n
