@@ -1,5 +1,8 @@
 name: "Generate and Commit PlantUML Diagrams"
 description: "generate from puml files to png files, and commit."
+branding:
+  icon: "image"
+  color: "orange"
 inputs:
   botEmail:
     description: "E-mail address for git commit"
