@@ -5,12 +5,12 @@ if [[ ! "${GITHUB_BASE_REF}" ]]; then
   echo "ERROR: This action is only for pull-request events."
   exit 1
 fi
-if [[ ! "${INPUT_BOT-EMAIL}" ]]; then
-  echo "ERROR: Please set inputs.bot-email"
+if [[ ! "${INPUT_BOTEMAIL}" ]]; then
+  echo "ERROR: Please set inputs.botEmail"
   exit 1
 fi
-if [[ ! "${INPUT_BOT-GITHUB-TOKEN}" ]]; then
-  echo "ERROR: Please set inputs.bot-github-token"
+if [[ ! "${INPUT_BOTGITHUBTOKEN}" ]]; then
+  echo "ERROR: Please set inputs.botGithubToken"
   exit 1
 fi
 
@@ -29,16 +29,16 @@ if [[ ! $(git status --porcelain) ]]; then
   exit 0
 fi
 git config user.name "${GITHUB_ACTOR}"
-git config user.email "${INPUT_BOT-EMAIL}"
-git remote set-url origin https://${GITHUB_ACTOR}:${INPUT_BOT-GITHUB-TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+git config user.email "${INPUT_BOTEMAIL}"
+git remote set-url origin https://${GITHUB_ACTOR}:${INPUT_BOTGITHUBTOKEN}@github.com/${GITHUB_REPOSITORY}.git
 git checkout ${GITHUB_HEAD_REF}
 git add .
-git commit -m "[skip ci] add generated diagrams"
+git commit -m "add generated diagrams"
 git push origin HEAD:${GITHUB_HEAD_REF}
 echo "comitted png files"
 
 # add review comment
-if [[ "${INPUT_ENABLE-REVIEW-COMMENT}" = "true" ]]; then
+if [[ "${INPUT_ENABLEREVIEWCOMMENT}" = "true" ]]; then
   exit 0
 fi
 git fetch
@@ -68,7 +68,7 @@ echo "pull-num: ${PULL_NUM}"
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Accept: application/vnd.github.v3+json" \
-  -H "Authorization: token ${INPUT_BOT-GITHUB-TOKEN}" \
+  -H "Authorization: token ${INPUT_BOTGITHUBTOKEN}" \
   -d "{\"event\": \"COMMENT\", \"body\": \"${BODY}\"}" \
   "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pulls/${PULL_NUM}/reviews"
 echo "added review comments"
