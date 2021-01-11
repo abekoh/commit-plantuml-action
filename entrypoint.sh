@@ -19,7 +19,7 @@ cd ${GITHUB_WORKSPACE}
 git fetch
 SRC_FILES=$(git diff origin/${GITHUB_BASE_REF} --name-only | grep ".puml")
 for SRC_FILE in ${SRC_FILES}; do
-  java -jar /plantuml.jar $SRC_FILE
+  java -jar /plantuml.jar $SRC_FILE -charset UTF-8
   echo "generate from $SRC_FILE"
 done
 
