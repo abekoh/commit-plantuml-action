@@ -6,10 +6,10 @@ inputs:
     required: true
   botGithubToken:
     description: "token of GitHub to commit"
-    required: true
+    required: false
   enableReviewComment:
     description: "whether post review comment or not"
-    required: true
+    required: false
     default: false
 runs:
   using: "docker"

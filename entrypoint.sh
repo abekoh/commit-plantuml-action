@@ -9,7 +9,7 @@ if [[ ! "${INPUT_BOTEMAIL}" ]]; then
   echo "ERROR: Please set inputs.botEmail"
   exit 1
 fi
-if [[ ! "${INPUT_BOTGITHUBTOKEN}" ]]; then
+if [[ "${INPUT_ENABLEREVIEWCOMMENT}" = "true" && ! "${INPUT_BOTGITHUBTOKEN}" ]]; then
   echo "ERROR: Please set inputs.botGithubToken"
   exit 1
 fi
