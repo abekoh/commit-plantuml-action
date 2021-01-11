@@ -18,11 +18,10 @@ fi
 cd ${GITHUB_WORKSPACE}
 git fetch
 SRC_FILES=$(git diff origin/${GITHUB_BASE_REF} --name-only | grep ".puml")
-SRC_DIRS=$(echo ${SRC_FILES} | xargs dirname | sort | uniq)
-for SRC_DIR in ${SRC_DIRS}; do
-  java -jar /plantuml.jar $SRC_DIR
+for SRC_FILE in ${SRC_FILES}; do
+  java -jar /plantuml.jar $SRC_FILE
+  echo "generate from $SRC_FILE"
 done
-echo "generated diagrams"
 
 # commit
 if [[ ! $(git status --porcelain) ]]; then
