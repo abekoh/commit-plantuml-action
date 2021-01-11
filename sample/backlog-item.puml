@@ -33,5 +33,4 @@ BacklogItem -- "0..*" Task
 
 Task -- TaskId
 Task -- "0..*" EstimationLogEntry
-
 @enduml

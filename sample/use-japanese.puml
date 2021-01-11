@@ -1,3 +1,5 @@
 @startuml
+
 太郎 -> 花子: こんにちは
+
 @enduml
