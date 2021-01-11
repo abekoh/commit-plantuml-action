@@ -34,4 +34,8 @@ Task -- TaskId
 Task -- ProductId
 Task -- BacklogItemId
 Task -- "0..*" EstimationLogEntry
+
+note right of BacklogItem {
+  This is sample note.
+}
 @enduml
