@@ -13,7 +13,6 @@ if [[ ! "${INPUT_BOTGITHUBTOKEN}" ]]; then
   echo "ERROR: Please set inputs.botGithubToken"
   exit 1
 fi
-ENABLE_REVIEW_COMMENT=$3
 
 # generate
 cd ${GITHUB_WORKSPACE}
