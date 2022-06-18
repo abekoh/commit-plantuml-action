@@ -1,6 +1,6 @@
 # Generate and Commit PlantUML Diagrams
 
-This action generate diagrams (png) from PlantUML files (*.puml), and commit to pull-request. Also this can add review comment of diff files.
+This action generate diagrams (png) from PlantUML files (`*.puml`), and commit to pull-request. Also this can add review comment of diff files.
 
 **[See sample pull request](https://github.com/abekoh/commit-plantuml-action/pull/33)**
 
@@ -16,7 +16,7 @@ jobs:
         uses: abekoh/commit-plantuml-action@1.0.1
         with:
           botEmail: ${{ secrets.BOT_EMAIL }}
-          botGithubToken: ${{ secrets.BOT_GITHUB_TOKEN }}
+          botGithubToken: ${{ secrets.GITHUB_TOKEN }}
           enableReviewComment: true
 ```
 
@@ -34,7 +34,7 @@ E-mail address for committing to git. You can use secrets.
 
 required: false
 
-To add review comment. Please generate from [here](https://github.com/settings/tokens/new). (Select `repo` as scope.)
+To add review comment. Use default [`secrets.GITHUB_TOKEN`](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token), or generate from [here](https://github.com/settings/tokens/new). (Select `repo` as scope.)
 
 ### enableReviewComment
 
