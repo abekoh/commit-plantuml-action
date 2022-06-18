@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: generate and commit diagrams
-        uses: abekoh/commit-plantuml-action@9426f3ff53bd7157f548a5c4478b519cd50e264f
+        uses: abekoh/commit-plantuml-action@c6e8d9077943cc506118e6fcab58232878fdc59e
         with:
           botEmail: ${{ secrets.BOT_EMAIL }}
           botGithubToken: ${{ secrets.BOT_GITHUB_TOKEN }}
