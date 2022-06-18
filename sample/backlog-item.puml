@@ -25,6 +25,10 @@ object EstimationLogEntry {
   <<value object>>
 }
 
+object SubTask {
+    <<entity>>
+}
+
 BacklogItem -- BacklogItemId
 BacklogItem -- ProductId
 BacklogItem -- ReleaseId
@@ -33,4 +37,6 @@ BacklogItem -- "0..*" Task
 
 Task -- TaskId
 Task -- "0..*" EstimationLogEntry
+
+Task -- "0..*" SubTask
 @enduml
