@@ -9,15 +9,8 @@ if [[ ! "${INPUT_BOTEMAIL}" ]]; then
   echo "ERROR: Please set inputs.botEmail"
   exit 1
 fi
-
-if [[ "${INPUT_BOTGITHUBTOKEN}" ]]; then
-  GIT_TOKEN=${INPUT_BOTGITHUBTOKEN}
-else
-  GIT_TOKEN=${GITHUB_TOKEN}
-fi
-
-if [[ "${INPUT_ENABLEREVIEWCOMMENT}" = "true" && ! "${GITHUB_TOKEN}" ]]; then
-  echo "ERROR: Please set inputs.botGithubToken or GITHUB_TOKEN"
+if [[ "${INPUT_ENABLEREVIEWCOMMENT}" = "true" && ! "${INPUT_BOTGITHUBTOKEN}" ]]; then
+  echo "ERROR: Please set inputs.botGithubToken"
   exit 1
 fi
 
@@ -74,7 +67,7 @@ echo "pull-num: ${PULL_NUM}"
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Accept: application/vnd.github.v3+json" \
-  -H "Authorization: token ${GIT_TOKEN}" \
+  -H "Authorization: token ${INPUT_BOTGITHUBTOKEN}" \
   -d "{\"event\": \"COMMENT\", \"body\": \"${BODY}\"}" \
   "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pulls/${PULL_NUM}/reviews"
 echo "added review comments"
