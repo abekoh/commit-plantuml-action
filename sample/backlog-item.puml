@@ -1,4 +1,6 @@
 @startuml
+skin rose
+
 object BacklogItem {
   <<aggregate root>>
 }

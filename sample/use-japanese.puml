@@ -1,4 +1,5 @@
 @startuml
+skin rose
 
 太郎 -> 花子: こんにちは
 
