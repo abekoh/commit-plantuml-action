@@ -12,8 +12,8 @@ jobs:
   build:
     steps:
       - uses: actions/checkout@v2
-      - name: generate and commit diagrams
-        uses: erzz/commit-plantuml-action@1.0.0
+      - name: PUML to PNG Commit & PR
+        uses: erzz/commit-plantuml-action@v1.0.0
         with:
           botEmail: ${{ secrets.BOT_EMAIL }}
           botGithubToken: ${{ secrets.GITHUB_TOKEN }}
