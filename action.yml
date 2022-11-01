@@ -1,5 +1,5 @@
-name: "Generate and Commit PlantUML Diagrams"
-description: "generate from puml files to png files, and commit."
+name: "PUML to PNG Commit & PR"
+description: "Generates PNG from all PUML files found in a PR diff, commits and posts to PR"
 branding:
   icon: "image"
   color: "orange"
