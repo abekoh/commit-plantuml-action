@@ -1,6 +1,4 @@
 @startuml
-skin rose
-
 object BacklogItem {
   <<aggregate root>>
 }
@@ -18,7 +16,7 @@ object SprintId {
 }
 
 object Task {
-  <<entity>>
+  <<aggregate root>>
 }
 object TaskId {
   <<value object>>
@@ -31,8 +29,13 @@ BacklogItem -- BacklogItemId
 BacklogItem -- ProductId
 BacklogItem -- ReleaseId
 BacklogItem -- SprintId
-BacklogItem -- "0..*" Task
 
 Task -- TaskId
+Task -- ProductId
+Task -- BacklogItemId
 Task -- "0..*" EstimationLogEntry
+
+note right of BacklogItem {
+  This is sample note.
+}
 @enduml

@@ -1,6 +1,6 @@
 @startuml
 skin rose
 
-太郎 -> 花子: こんにちは
+太郎 -> 花子: さようなら
 
 @enduml
