@@ -38,6 +38,6 @@ To add review comment. Use default [`secrets.GITHUB_TOKEN`](https://docs.github.
 
 ### enableReviewComment
 
-required: false, default: false
+required: false, default: "false"
 
-If set `true`, diff png files' information are submitted to pull request.
+If set `"true"`, diff png files' information are submitted to pull request.
