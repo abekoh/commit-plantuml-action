@@ -36,6 +36,8 @@ required: false
 
 To add review comment. Use default [`secrets.GITHUB_TOKEN`](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token), or generate from [here](https://github.com/settings/tokens/new). (Select `repo` as scope.)
 
+Note: If you use a default token (`secrets.GITHUB_TOKEN`), bot's git-push event won't trigger workflows. (See https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#triggering-a-workflow-from-a-workflow)
+
 ### enableReviewComment
 
 required: false, default: "false"
