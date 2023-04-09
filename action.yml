@@ -13,7 +13,7 @@ inputs:
   enableReviewComment:
     description: "whether post review comment or not"
     required: false
-    default: false
+    default: "false"
 runs:
   using: "docker"
   image: "Dockerfile"
