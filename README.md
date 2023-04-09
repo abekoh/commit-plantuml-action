@@ -11,9 +11,9 @@ example:
 jobs:
   build:
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: generate and commit diagrams
-        uses: abekoh/commit-plantuml-action@1.0.3
+        uses: abekoh/commit-plantuml-action@2.0.0
         with:
           botEmail: ${{ secrets.BOT_EMAIL }}
           botGithubToken: ${{ secrets.GITHUB_TOKEN }}
