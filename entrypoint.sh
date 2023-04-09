@@ -24,6 +24,8 @@ for SRC_FILE in ${SRC_FILES}; do
   echo "generate from $SRC_FILE"
 done
 
+echo "$(git status --porcelain)"
+
 # commit
 if [[ ! $(git status --porcelain) ]]; then
   echo "no changes"
