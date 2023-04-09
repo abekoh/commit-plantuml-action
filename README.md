@@ -11,9 +11,9 @@ example:
 jobs:
   build:
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: generate and commit diagrams
-        uses: abekoh/commit-plantuml-action@1.0.3
+        uses: abekoh/commit-plantuml-action@2.0.0
         with:
           botEmail: ${{ secrets.BOT_EMAIL }}
           botGithubToken: ${{ secrets.GITHUB_TOKEN }}
@@ -36,8 +36,10 @@ required: false
 
 To add review comment. Use default [`secrets.GITHUB_TOKEN`](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token), or generate from [here](https://github.com/settings/tokens/new). (Select `repo` as scope.)
 
+Note: If you use a default token (`secrets.GITHUB_TOKEN`), bot's git-push event won't trigger workflows. (See https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#triggering-a-workflow-from-a-workflow)
+
 ### enableReviewComment
 
-required: false, default: false
+required: false, default: "false"
 
-If set `true`, diff png files' information are submitted to pull request.
+If set `"true"`, diff png files' information are submitted to pull request.
