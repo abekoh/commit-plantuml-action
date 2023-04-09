@@ -17,8 +17,8 @@ fi
 # generate
 git config --global --add safe.directory ${GITHUB_WORKSPACE}
 cd ${GITHUB_WORKSPACE}
-git fetch
-SRC_FILES=$(git diff origin/${GITHUB_BASE_REF} --name-only | grep ".puml")
+git fetch || true
+SRC_FILES=$(git diff origin/${GITHUB_BASE_REF} --name-only | grep ".puml" || :)
 echo "src_files:"
 echo $SRC_FILES
 for SRC_FILE in ${SRC_FILES}; do
