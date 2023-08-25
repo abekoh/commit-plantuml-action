@@ -13,6 +13,16 @@ if [[ "${INPUT_ENABLEREVIEWCOMMENT}" = "true" && ! "${INPUT_BOTGITHUBTOKEN}" ]];
   echo "ERROR: Please set inputs.botGithubToken"
   exit 1
 fi
+if [ -z "$INPUT_INSTALLGOOGLEFONT" ]; then
+  echo "No font family defined"
+else
+  echo "Installing $INPUT_INSTALLGOOGLEFONT"
+  wget -O $INPUT_INSTALLGOOGLEFONT.zip https://fonts.google.com/download?family=$INPUT_INSTALLGOOGLEFONT
+  unzip -d $INPUT_INSTALLGOOGLEFONT/ $INPUT_INSTALLGOOGLEFONT.zip
+  mv $INPUT_INSTALLGOOGLEFONT /usr/share/fonts/
+  rm -rf $INPUT_INSTALLGOOGLEFONT.zip
+  fc-cache -fv
+fi
 
 # generate
 git config --global --add safe.directory ${GITHUB_WORKSPACE}

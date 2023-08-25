@@ -18,6 +18,7 @@ jobs:
           botEmail: ${{ secrets.BOT_EMAIL }}
           botGithubToken: ${{ secrets.GITHUB_TOKEN }}
           enableReviewComment: true
+          installGoogleFont: Barlow
 ```
 
 You must set `actions/checkout` before this step, to get source codes.

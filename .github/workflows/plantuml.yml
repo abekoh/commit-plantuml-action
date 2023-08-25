@@ -13,3 +13,4 @@ jobs:
           botEmail: ${{ secrets.BOT_EMAIL }}
           botGithubToken: ${{ secrets.GITHUB_TOKEN }}
           enableReviewComment: true
+          installGoogleFont: Barlow
