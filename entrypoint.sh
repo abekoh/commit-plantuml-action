@@ -40,10 +40,10 @@ if [[ ! $(git status --porcelain) ]]; then
 fi
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${INPUT_BOTEMAIL}"
-git checkout ${GITHUB_HEAD_REF}
+#git checkout ${GITHUB_HEAD_REF}
 git add .
 git commit -m "add generated diagrams"
-git push origin HEAD:${GITHUB_HEAD_REF}
+git push #origin HEAD:${GITHUB_HEAD_REF}
 echo "comitted png files"
 
 # add review comment
