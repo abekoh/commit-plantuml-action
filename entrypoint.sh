@@ -41,16 +41,15 @@ fi
 git config --global user.name "${GITHUB_ACTOR}"
 git config --global user.email "${INPUT_BOTEMAIL}"
 git commit -am "add generated diagrams" || echo "No changes to commit"
-git fetch origin
-git pull
-git reset --hard origin/${GITHUB_HEAD_REF}
 git push
+
+echo "push ok"
 
 # add review comment
 if [[ "${INPUT_ENABLEREVIEWCOMMENT}" != "true" ]]; then
   exit 0
 fi
-#git fetch
+git fetch
 GITHUB_SHA_AFTER=$(git rev-parse origin/${GITHUB_HEAD_REF})
 DIFF_FILES=`git diff ${GITHUB_SHA} ${GITHUB_SHA_AFTER} --name-only | grep ".png"`
 echo $DIFF_FILES
