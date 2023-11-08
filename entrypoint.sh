@@ -36,15 +36,18 @@ done
 
 # commit
 if [[ ! $(git status --porcelain) ]]; then
+  echo "No changes to commit"
   exit 0
 fi
 git config --global user.name "${GITHUB_ACTOR}"
 git config --global user.email "${INPUT_BOTEMAIL}"
-git commit -am "add generated diagrams" || echo "No changes to commit"
+git checkout ${GITHUB_HEAD_REF}
+git commit -am "add generated diagrams"
+echo "comitted png files"
 
 # add review comment
 if [[ "${INPUT_ENABLEREVIEWCOMMENT}" != "true" ]]; then
-  git push
+  git push origin HEAD:${GITHUB_HEAD_REF}
   exit 0
 fi
 git fetch
@@ -78,4 +81,4 @@ curl -X POST \
   -d "{\"event\": \"COMMENT\", \"body\": \"${BODY}\"}" \
   "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pulls/${PULL_NUM}/reviews"
 echo "added review comments"
-git push
+git push origin HEAD:${GITHUB_HEAD_REF}
