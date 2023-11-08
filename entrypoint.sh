@@ -41,12 +41,10 @@ fi
 git config --global user.name "${GITHUB_ACTOR}"
 git config --global user.email "${INPUT_BOTEMAIL}"
 git commit -am "add generated diagrams" || echo "No changes to commit"
-git push
-
-echo "push ok"
 
 # add review comment
 if [[ "${INPUT_ENABLEREVIEWCOMMENT}" != "true" ]]; then
+  git push
   exit 0
 fi
 git fetch
@@ -80,3 +78,4 @@ curl -X POST \
   -d "{\"event\": \"COMMENT\", \"body\": \"${BODY}\"}" \
   "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pulls/${PULL_NUM}/reviews"
 echo "added review comments"
+git push
