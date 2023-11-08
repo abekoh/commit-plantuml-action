@@ -25,9 +25,9 @@ else
 fi
 
 # generate
-git config --global --add safe.directory ${GITHUB_WORKSPACE}
-cd ${GITHUB_WORKSPACE}
-git fetch
+# git config --global --add safe.directory ${GITHUB_WORKSPACE}
+# cd ${GITHUB_WORKSPACE}
+# git fetch
 SRC_FILES=$(git diff origin/${GITHUB_BASE_REF} --name-only | grep ".puml" || :)
 for SRC_FILE in ${SRC_FILES}; do
   java -jar /plantuml.jar $SRC_FILE -charset UTF-8
@@ -38,13 +38,9 @@ done
 if [[ ! $(git status --porcelain) ]]; then
   exit 0
 fi
-git config user.name "${GITHUB_ACTOR}"
-git config user.email "${INPUT_BOTEMAIL}"
-git checkout ${GITHUB_HEAD_REF}
-git add .
-git commit -m "add generated diagrams"
-git push origin HEAD:${GITHUB_HEAD_REF}
-echo "comitted png files"
+git config --global user.name "${GITHUB_ACTOR}"
+git config --global user.email "${INPUT_BOTEMAIL}"
+git commit -am "add generated diagrams" || echo "No changes to commit"
 
 # add review comment
 if [[ "${INPUT_ENABLEREVIEWCOMMENT}" != "true" ]]; then
