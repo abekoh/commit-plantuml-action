@@ -50,8 +50,11 @@ if [[ "${INPUT_ENABLEREVIEWCOMMENT}" != "true" ]]; then
   git push origin HEAD:${GITHUB_HEAD_REF}
   exit 0
 fi
+echo "1"
 git fetch
+echo "2"
 GITHUB_SHA_AFTER=$(git rev-parse origin/${GITHUB_HEAD_REF})
+echo "3"
 DIFF_FILES=`git diff ${GITHUB_SHA} ${GITHUB_SHA_AFTER} --name-only | grep ".png"`
 echo $DIFF_FILES
 BODY="## Diagrams changed\n"
@@ -70,6 +73,7 @@ EOS
   `
   BODY=${BODY}${TEMP}
 done
+echo "4"
 BODY=`echo ${BODY} | sed -e "s/\:/\\\:/g"`
 PULL_NUM=`echo ${GITHUB_REF} | sed -r "s/refs\/pull\/([0-9]+)\/merge/\1/"`
 echo "body: ${BODY}"
@@ -81,4 +85,5 @@ curl -X POST \
   -d "{\"event\": \"COMMENT\", \"body\": \"${BODY}\"}" \
   "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pulls/${PULL_NUM}/reviews"
 echo "added review comments"
+echo "5"
 git push origin HEAD:${GITHUB_HEAD_REF}
