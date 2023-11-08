@@ -27,7 +27,7 @@ fi
 # generate
 git config --global --add safe.directory ${GITHUB_WORKSPACE}
 cd ${GITHUB_WORKSPACE}
-git fetch
+git fetch origin
 SRC_FILES=$(git diff origin/${GITHUB_BASE_REF} --name-only | grep ".puml" || :)
 for SRC_FILE in ${SRC_FILES}; do
   java -jar /plantuml.jar $SRC_FILE -charset UTF-8
@@ -41,7 +41,8 @@ fi
 git config --global user.name "${GITHUB_ACTOR}"
 git config --global user.email "${INPUT_BOTEMAIL}"
 git commit -am "add generated diagrams" || echo "No changes to commit"
-git push origin HEAD:${GITHUB_HEAD_REF}
+git reset --hard origin/${GITHUB_HEAD_REF}
+git push
 
 # add review comment
 if [[ "${INPUT_ENABLEREVIEWCOMMENT}" != "true" ]]; then
