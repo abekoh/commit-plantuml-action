@@ -1,5 +1,6 @@
 @startuml
 skin rose
+skinparam defaultFontName Barlow
 
 object BacklogItem {
   <<aggregate root>>

@@ -18,6 +18,7 @@ jobs:
           botEmail: ${{ secrets.BOT_EMAIL }}
           botGithubToken: ${{ secrets.GITHUB_TOKEN }}
           enableReviewComment: true
+          installGoogleFont: Barlow
 ```
 
 You must set `actions/checkout` before this step, to get source codes.
@@ -41,3 +42,11 @@ To add review comment. Use default [`secrets.GITHUB_TOKEN`](https://docs.github.
 required: false, default: false
 
 If set `true`, diff png files' information are submitted to pull request.
+
+### installGoogleFont
+
+required: false
+
+If set, the value will be use to download and install a font family from
+[google](https://fonts.google.com/). To be used in combination with `skinparam
+defaultFontName` and other FontName skin settings for plantuml.

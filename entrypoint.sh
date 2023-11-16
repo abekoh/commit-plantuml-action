@@ -13,6 +13,16 @@ if [[ "${INPUT_ENABLEREVIEWCOMMENT}" = "true" && ! "${INPUT_BOTGITHUBTOKEN}" ]];
   echo "ERROR: Please set inputs.botGithubToken"
   exit 1
 fi
+if [ -z "$INPUT_INSTALLGOOGLEFONT" ]; then
+  echo "No font family defined"
+else
+  echo "Installing $INPUT_INSTALLGOOGLEFONT"
+  wget -O $INPUT_INSTALLGOOGLEFONT.zip https://fonts.google.com/download?family=$INPUT_INSTALLGOOGLEFONT
+  unzip -d $INPUT_INSTALLGOOGLEFONT/ $INPUT_INSTALLGOOGLEFONT.zip
+  mv $INPUT_INSTALLGOOGLEFONT /usr/share/fonts/
+  rm -rf $INPUT_INSTALLGOOGLEFONT.zip
+  fc-cache -fv
+fi
 
 # generate
 git config --global --add safe.directory ${GITHUB_WORKSPACE}
@@ -26,22 +36,23 @@ done
 
 # commit
 if [[ ! $(git status --porcelain) ]]; then
+  echo "No changes to commit"
   exit 0
 fi
-git config user.name "${GITHUB_ACTOR}"
-git config user.email "${INPUT_BOTEMAIL}"
+git config --global user.name "${GITHUB_ACTOR}"
+git config --global user.email "${INPUT_BOTEMAIL}"
 git checkout ${GITHUB_HEAD_REF}
 git add .
 git commit -m "add generated diagrams"
-git push origin HEAD:${GITHUB_HEAD_REF}
 echo "comitted png files"
 
 # add review comment
 if [[ "${INPUT_ENABLEREVIEWCOMMENT}" != "true" ]]; then
+  git push
   exit 0
 fi
 git fetch
-GITHUB_SHA_AFTER=$(git rev-parse origin/${GITHUB_HEAD_REF})
+GITHUB_SHA_AFTER=$(git rev-parse HEAD)
 DIFF_FILES=`git diff ${GITHUB_SHA} ${GITHUB_SHA_AFTER} --name-only | grep ".png"`
 echo $DIFF_FILES
 BODY="## Diagrams changed\n"
@@ -71,3 +82,4 @@ curl -X POST \
   -d "{\"event\": \"COMMENT\", \"body\": \"${BODY}\"}" \
   "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pulls/${PULL_NUM}/reviews"
 echo "added review comments"
+git push
