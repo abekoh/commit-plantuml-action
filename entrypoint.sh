@@ -42,7 +42,8 @@ fi
 git config --global user.name "${GITHUB_ACTOR}"
 git config --global user.email "${INPUT_BOTEMAIL}"
 git checkout ${GITHUB_HEAD_REF}
-git commit -am "add generated diagrams"
+git add .
+git commit -m "add generated diagrams"
 echo "comitted png files"
 
 # add review comment
